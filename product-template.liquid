@@ -1,0 +1,23 @@
+Add this line before closing </body> tag
+======================
+
+{{ '//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js' | script_tag }}
+{{ 'jquery.zoom.min.js' | asset_url | script_tag }}
+<script>
+  $(document).ready(function(){ $('.image-zoom').zoom(); });
+</script>
+
+Find this line
+
+{%for image in product.images%}
+   <img src="{{image | img_url: 'master'}}" class="img-responsive">
+{%endfor%}
+
+
+Replace with this line
+
+{%for image in product.images%}
+   <div class="image-zoom" data-zoom="{{ image | img_url: 'master', scale: 2 }}">
+       <img src="{{image | img_url: 'master'}}" class="img-responsive">
+   </div>
+{%endfor%}
